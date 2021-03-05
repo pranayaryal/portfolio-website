@@ -1,0 +1,161 @@
+---
+title: "PubMed Api"
+publishedAt: "2022-12-13"
+summary: "Cleaner look of pubMed Api"
+image: ""
+---
+
+<Image
+  src="/static/images/svgs/random.svg"
+  width={1080}
+  height={720}
+/>
+
+I recently visited pubmed's [API website](https://www.ncbi.nlm.nih.gov/books/NBK25500/).
+But the website was old-looking and not very easy to navigate.  I hope to create a better experience for you here.
+
+The base uri for the API is `https://eutils.ncbi.nlm.nih.gov/entrez/eutils/`
+
+## Table of Contents
+
+1. [Basic Searching](/blog/pubmed-api#basic-searching)
+2. [EPost](/blog/pubmed-api#epost)
+
+<div id="basic-searching">
+  <StepLargeCustom number="1" title="Basic Searching" />
+</div>
+
+UID = Unique Identifier
+
+This API endpoint can be used search for a term.  It returns a list of UIDs which are identifiers for
+articles.
+
+<HighlightBox><strong>Functions:</strong></HighlightBox> Provides a list of UIDs matching a text query.
+
+<HighlightBox><strong>Base Url:</strong></HighlightBox> `https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi`
+
+<HighlightBox><strong>Required parameters:</strong></HighlightBox>
+db (database to use); term (search term to use). 
+
+`https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pubmed` for pubmed
+
+<HighlightBox><strong>Output:</strong></HighlightBox>
+List of UIDs matching the Entrez query. 
+
+<HighlightBox><strong>Example:</strong></HighlightBox>
+Get the PubMed IDs (PMIDs) for articles about breast cancer published in Science in 2008
+
+<HighlightBox><strong>Example Uri:</strong></HighlightBox>
+[https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pubmed&term=science[journal]+AND+breast+cancer+AND+2008[pdat]&retmode=json](https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pubmed&term=science[journal]+AND+breast+cancer+AND+2008[pdat]&retmode=json)
+
+### Optional Parameters
+
+1. <HighlightBox><strong>retmode:</strong></HighlightBox>
+
+Set this to <strong>json</strong> to return json
+
+[https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pubmed&term=science[journal]+AND+breast+cancer+AND+2008[pdat]&retmode=json](https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pubmed&term=science[journal]+AND+breast+cancer+AND+2008[pdat]&retmode=json)
+
+
+<HighlightBox>
+  <strong>Response:</strong>
+</HighlightBox>
+
+```json
+{
+  "header": { "type": "esearch", "version": "0.3" },
+  "esearchresult": {
+    "count": "6",
+    "retmax": "6",
+    "retstart": "0",
+    "idlist": [
+      "19008416",
+      "18927361",
+      "18787170",
+      "18487186",
+      "18239126",
+      "18239125"
+    ],
+    "translationset": [
+      {
+        "from": "science[journal]",
+        "to": "\"Science\"[Journal:__jid0404511] OR \"Science (1979)\"[Journal:__jid8000640]"
+      },
+      {
+        "from": "breast cancer",
+        "to": "\"breast neoplasms\"[MeSH Terms] OR (\"breast\"[All Fields] AND \"neoplasms\"[All Fields]) OR \"breast neoplasms\"[All Fields] OR (\"breast\"[All Fields] AND \"cancer\"[All Fields]) OR \"breast cancer\"[All Fields]"
+      }
+    ],
+    "querytranslation": "(\"science\"[Journal] OR \"science 1979\"[Journal]) AND (\"breast neoplasms\"[MeSH Terms] OR (\"breast\"[All Fields] AND \"neoplasms\"[All Fields]) OR \"breast neoplasms\"[All Fields] OR (\"breast\"[All Fields] AND \"cancer\"[All Fields]) OR \"breast cancer\"[All Fields]) AND 2008/01/01:2008/12/31[Date - Publication]"
+  }
+}
+
+```
+
+2. <HighlightBox><strong>retstart:</strong></HighlightBox>
+Index of the first UID to be shown
+
+[https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pubmed&term=science[journal]+AND+breast+cancer+AND+2008[pdat]&retmode=json&retstart=10](https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pubmed&term=science[journal]+AND+breast+cancer+AND+2008[pdat]&retmode=json&retstart=10)
+
+3. <HighlightBox><strong>retmax:</strong></HighlightBox>
+Total number of UIDs to be shown
+
+4. <HighlightBox><strong>sort:</strong></HighlightBox>
+Sort by the following:
+ - relevance (default)
+ - pub_date (descending order by publication date)
+ - Author - (by first author)
+ - JournalName
+
+[https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pubmed&term=science[journal]+AND+breast+cancer+AND+2008[pdat]&retmode=json&sort=pub_date](https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pubmed&term=science[journal]+AND+breast+cancer+AND+2008[pdat]&retmode=json&sort=pub_date)
+
+
+5. <HighlightBox><strong>usehistory:</strong></HighlightBox>
+When this is set to <strong>y</strong>, pubmed caches the results in the database and returns an id in the field <strong>webenv</strong> field
+in the response which can be used in a subsequent query.
+
+
+[https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pubmed&term=science[journal]+AND+breast+cancer+AND+2008[pdat]&usehistory=y&retmode=json](https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pubmed&term=science[journal]+AND+breast+cancer+AND+2008[pdat]&usehistory=y&retmode=json)
+
+
+6. <HighlightBox><strong>field:</strong></HighlightBox>
+Search field. If used, the entire search term will be limited to the specified Entrez field. The following two URLs are equivalent:
+[https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pubmed&term=science[journal]+AND+breast+cancer+AND+2008[pdat]&field=title&retmode=json](https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pubmed&term=science[journal]+AND+breast+cancer+AND+2008[pdat]&field=title&retmode=json)
+
+7. <HighlightBox><strong>datetype:</strong></HighlightBox>
+- &datetype=mdat - modification date
+- &datetype=pdat - publication date
+- &datetype=edat - entrez date
+
+
+8.  <HighlightBox><strong>mindate, maxdate:</strong></HighlightBox>
+- self explanatory
+- format should be yyyy/mm/dd or yyyy or yyyy/mm
+
+<Divider />
+
+<div id="epost">
+  <StepLargeCustom number="2" title="Epost" />
+</div>
+
+Lets say you fetched a list of UIDs from another query and you want to store it in PubMed
+database for subsequent use, you can use the `Epost` api. Unfortunately this returns an
+XML response with a `WebEnv` id which can be used in a subsequent api call.
+
+<HighlightBox><strong>Base Url:</strong></HighlightBox>
+`https://eutils.ncbi.nlm.nih.gov/entrez/eutils/epost.fcgi`
+
+<HighlightBox><strong>Example: </strong></HighlightBox>
+
+[https://eutils.ncbi.nlm.nih.gov/entrez/eutils/epost.fcgi?db=pubmed&id=19393038,30242208,29453458](https://eutils.ncbi.nlm.nih.gov/entrez/eutils/epost.fcgi?db=pubmed&id=19393038,30242208,29453458)
+
+
+<HighlightBox><strong>Response: </strong></HighlightBox>
+
+```xml
+<ePostResult>
+  <QueryKey>1</QueryKey>
+  <WebEnv>MCID_638ed24f60584201f023f4bb</WebEnv>
+</ePostResult>
+
+```
