@@ -48,7 +48,7 @@ export default function BlogLayout({ children, frontMatter }) {
             />
             <p className="text-sm text-gray-700 dark:text-gray-300 ml-2">
               {frontMatter.by}
-              {"Manu Arora / "}
+              {"Pranay Aryal / "}
               {format(parseISO(frontMatter.publishedAt), "MMMM dd, yyyy")}
             </p>
           </div>
