@@ -13,7 +13,7 @@ export default function HighlightBox({ children }) {
         {children}
       </p>
       <div
-        className="absolute bottom-0 left-0 right-0 mt-10 h-2 inline-block bg-green-200 dark:bg-green-600"
+        className="absolute bottom-0 left-0 right-0 mt-10 h-1 inline-block bg-green-200 dark:bg-green-600"
         style={{ zIndex: -10 }}
       ></div>
     </div>
