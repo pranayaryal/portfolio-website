@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { LinkPreview } from "@/components/LinkPreview";
 
 const Header = () => {
   const [open, setOpen] = useState(false);
@@ -35,7 +33,7 @@ const Header = () => {
         </h1>
 
         <p className="text-zinc-600 dark:text-zinc-500">
-          Software Engineer
+          Software Developer building web apps. I'm also on twitter
         </p>
       </div>
 

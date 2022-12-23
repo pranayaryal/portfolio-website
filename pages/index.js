@@ -1,9 +1,5 @@
 import Container from "@/components/Container";
-import Link from "next/link";
 import BlogPost from "@/components/BlogPost";
-import ProjectCard from "@/components/ProjectCard";
-import Timeline from "@/components/Timeline";
-import Contact from "@/components/Contact";
 
 import { LIGHT_COLORS } from "@/lib/constants";
 
@@ -38,11 +34,11 @@ export default function Home() {
       <div className="flex flex-col justify-center items-start max-w-2xl mx-auto mb-16">
         <Header />
         <h3 className="font-bold text-2xl md:text-4xl tracking-tight mb-4 text-black dark:text-white">
-          Recent Blogs
+          Blogs
         </h3>
         <BlogPost
           title="PubMed Api"
-          summary="Cleaner explanation of pubMed Api"
+          summary="Explaining pubmed API in a cleaner manner"
           slug="pubmed-api"
         />
 
