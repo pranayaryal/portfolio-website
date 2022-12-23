@@ -34,12 +34,7 @@ export default function Container(props) {
     {
       name: "Blog",
       link: "/blog",
-    },
-
-    {
-      name: "Snippets",
-      link: "/snippets",
-    },
+    }
   ];
   const mobileLinks = [
     {
@@ -49,12 +44,8 @@ export default function Container(props) {
     {
       name: "Blog",
       link: "/blog",
-    },
+    }
 
-    {
-      name: "Snippets",
-      link: "/snippets",
-    },
   ];
 
   return (

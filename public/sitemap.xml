@@ -57,68 +57,14 @@
   </url>
 
   <url>
-    <loc>https://manuarora.in/snippets/animated-gradient</loc>
-  </url>
-
-  <url>
-    <loc
-      >https://manuarora.in/snippets/firebase-auth-with-user-doc-firestore</loc
-    >
-  </url>
-
-  <url>
-    <loc>https://manuarora.in/snippets/framer-motion-cards</loc>
-  </url>
-
-  <url>
-    <loc>https://manuarora.in/snippets/gradient-border</loc>
-  </url>
-
-  <url>
-    <loc>https://manuarora.in/snippets/gradient-text</loc>
-  </url>
-
-  <url>
-    <loc>https://manuarora.in/snippets/keyboard-events</loc>
-  </url>
-
-  <url>
-    <loc>https://manuarora.in/snippets/loader</loc>
-  </url>
-
-  <url>
-    <loc>https://manuarora.in/snippets/moving-card</loc>
-  </url>
-
-  <url>
-    <loc>https://manuarora.in/snippets/navbar-effect</loc>
-  </url>
-
-  <url>
-    <loc>https://manuarora.in/snippets/razorpay</loc>
-  </url>
-
-  <url>
-    <loc>https://manuarora.in/snippets/sendgrid</loc>
-  </url>
-
-  <url>
-    <loc>https://manuarora.in/snippets/spotify</loc>
-  </url>
-
-  <url>
-    <loc>https://manuarora.in/snippets/tailwind-card</loc>
-  </url>
-
-  <url>
-    <loc>https://manuarora.in/snippets/toast</loc>
-  </url>
-
-  <url>
     <loc>https://manuarora.in/blog/old-blog</loc>
   </url>
 
   <url>
     <loc>https://manuarora.in/blog/pubmed-api</loc>
+  </url>
+
+  <url>
+    <loc>https://manuarora.in/snippets/animated-gradient</loc>
   </url>
 </urlset>

@@ -12,7 +12,6 @@ import { useEffect, useState } from "react";
 import { useIsFontReady } from "@/lib/useIsFontReady";
 
 import { useTheme } from "next-themes";
-import Talks from "@/components/Talks";
 import Header from "@/components/Header";
 
 export default function Home() {

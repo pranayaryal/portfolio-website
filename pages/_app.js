@@ -4,7 +4,6 @@ import { ThemeProvider } from "next-themes";
 import { useEffect } from "react";
 import { useRouter } from "next/router";
 import * as gtag from "@/lib/gtag";
-import Banner from "@/components/Banner";
 
 import MDXComponents from "@/components/MDXComponents";
 import Chat from "@/components/Chat";

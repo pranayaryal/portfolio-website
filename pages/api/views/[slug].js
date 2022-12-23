@@ -1,5 +1,3 @@
-import db from "@/lib/firebase";
-
 export default async (req, res) => {
   if (req.method === "POST") {
     const ref = db.ref("views").child(req.query.slug);
