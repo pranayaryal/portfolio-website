@@ -30,6 +30,7 @@ The <strong>base URI</strong> for the API is `https://eutils.ncbi.nlm.nih.gov/en
 4. [Getting Summaries](/blog/pubmed-api#summary)
 5. [Getting Full Data](/blog/pubmed-api#full)
 6. [Spelling Suggestions](/blog/pubmed-api#spelling)
+6. [Related Articles](/blog/pubmed-api#related)
 7. [Optional Parameters](/blog/pubmed-api#optional)
 8. [EPost](/blog/pubmed-api#epost)
 
@@ -207,8 +208,29 @@ Example: Find spelling suggestions for the PubMed Central query ‘fiberblast ce
 
 <Divider />
 
+<div id="related">
+  <StepLargeCustom number="6" title="Related Articles" />
+</div>
+
+Responds to a list of UIDs in a given database with either a list of related UIDs (and relevancy scores) in the same database or a list of linked UIDs in another Entrez database
+
+Batch mode – finds only one set of linked UIDs
+
+`elink.fcgi?dbfrom=<source_db>&db=<destination_db>&id=<uid_list>`
+
+Input: List of UIDs (&id); Source Entrez database (&dbfrom); Destination Entrez database (&db)
+
+Output: XML containing linked UIDs from source and destination databases
+
+Example: Find one set of Gene IDs linked to nuccore GIs 34577062 and 24475906
+
+[https://eutils.ncbi.nlm.nih.gov/entrez/eutils/elink.fcgi?dbfrom=pubmed&db=pubmed&id=34525277](https://eutils.ncbi.nlm.nih.gov/entrez/eutils/elink.fcgi?dbfrom=pubmed&db=pubmed&id=34525277)
+
+
+<Divider />
+
 <div id="optional">
-  <StepLargeCustom number="6" title="Optional Parameters" />
+  <StepLargeCustom number="7" title="Optional Parameters" />
 </div>
 
 1. <HighlightBox><strong>retmode:</strong></HighlightBox>
