@@ -9,7 +9,7 @@ import Link from "next/link";
 export default function BlogLayout({ children, frontMatter }) {
   return (
     <Container
-      title={`${frontMatter.title} – Manu Arora`}
+      title={`${frontMatter.title} – Pranay Aryal`}
       description={frontMatter.summary}
       image={`https://manuarora.in${frontMatter.image}`}
       date={new Date(frontMatter.publishedAt).toISOString()}

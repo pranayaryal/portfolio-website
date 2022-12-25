@@ -13,13 +13,17 @@ image: ""
 
 ## What is pubmed?
 
-Pubmed is a website clinicians and researchers visit to look for research articles.
+[Pubmed](https://pubmed.ncbi.nlm.nih.gov/) is a website clinicians and researchers visit to look for research articles.
 
-They have an [API website](https://www.ncbi.nlm.nih.gov/books/NBK25500/) that I recently visited but it wasn't very clean and modern-looking.
+It has an [API website](https://www.ncbi.nlm.nih.gov/books/NBK25501/) that I recently visited but it wasn't very clean and modern-looking.
 
-I describe it here in a cleaner manner.
+Here I have picked out the good parts listed there.
+
+I may have omitted a few things but please visit the above link for a full description.
 
 The <strong>base URI</strong> for the API is `https://eutils.ncbi.nlm.nih.gov/entrez/eutils/`
+
+[Testing demo](/pubmed-demo)
 
 ## Table of Contents
 
@@ -29,18 +33,20 @@ The <strong>base URI</strong> for the API is `https://eutils.ncbi.nlm.nih.gov/en
 3. [Storing Search Results](/blog/pubmed-api#storing)
 4. [Getting Summaries](/blog/pubmed-api#summary)
 5. [Getting Full Data](/blog/pubmed-api#full)
-6. [Spelling Suggestions](/blog/pubmed-api#spelling)
-6. [Related Articles](/blog/pubmed-api#related)
-7. [Optional Parameters](/blog/pubmed-api#optional)
-8. [EPost](/blog/pubmed-api#epost)
+7. [Spelling Suggestions](/blog/pubmed-api#spelling)
+8. [Related Articles](/blog/pubmed-api#related)
+9. [Optional Parameters](/blog/pubmed-api#optional)
+10. [Getting Database statistics and Search Fields](/blog/pubmed-api#search-fields)
+11. [Demo](/blog/pubmed-api#demo)
+12. [Attribution](/blog/pubmed-api#attribution)
 
 <div id="api-keys">
   <StepLargeCustom number="1" title="API Keys" />
 </div>
 
- API keys can be obtaind from [http://www.ncbi.nlm.nih.gov/account/](http://www.ncbi.nlm.nih.gov/account/)
+ API keys can be obtaind from [http://www.ncbi.nlm.nih.gov/account/](http://www.ncbi.nlm.nih.gov/account/) after you create an account
 
- After creating the key, users should include it in each E-utility request by assigning it to the api_key parameter.
+ After creating the key, users should include it in each E-utility request by assigning it to the `api_key` parameter.
 
 Example request including an API key:
 
@@ -85,10 +91,12 @@ Get the PubMed IDs (PMIDs) for articles about breast cancer published in Science
 
 <Divider />
 <div id="storing">
-  <StepLargeCustom number="2" title="Storing Search Results" />
+  <StepLargeCustom number="3" title="Storing Search Results" />
 </div>
 
 Can be used to save your query results in the pubmed server.
+
+You will need to use this while combining results which I describe later
 
 `esearch.fcgi?db=<database>&term=<query>&usehistory=y`
 
@@ -152,7 +160,7 @@ This will return WebEnv ID similar to above.
 
 
 <div id="summary">
-  <StepLargeCustom number="3" title="Getting Summary" />
+  <StepLargeCustom number="4" title="Getting Summary" />
 </div>
 
 It provides summaries of studies for a given list of pubmed IDs separate by commas.
@@ -173,7 +181,7 @@ Endpoint: `esummary.fcgi?db=<database>&query_key=$key1&WebEnv=$web1`
 
 
 <div id="full">
-  <StepLargeCustom number="4" title="Getting Full Data" />
+  <StepLargeCustom number="5" title="Getting Full Data" />
 </div>
 
 <HighlightBox><strong>Endpoint:</strong></HighlightBox>
@@ -189,7 +197,7 @@ List of UIDs (&id); Entrez database (&db); Retrieval type (&rettype); Retrieval 
 <Divider />
 
 <div id="spelling">
-  <StepLargeCustom number="5" title="Spelling suggestions" />
+  <StepLargeCustom number="6" title="Spelling suggestions" />
 </div>
 
 <HighlightBox><strong>Endpoint:</strong></HighlightBox>
@@ -209,7 +217,7 @@ Example: Find spelling suggestions for the PubMed Central query ‘fiberblast ce
 <Divider />
 
 <div id="related">
-  <StepLargeCustom number="6" title="Related Articles" />
+  <StepLargeCustom number="7" title="Related Articles" />
 </div>
 
 Responds to a list of UIDs in a given database with either a list of related UIDs (and relevancy scores) in the same database or a list of linked UIDs in another Entrez database
@@ -227,10 +235,9 @@ Example: Find one set of Gene IDs linked to nuccore GIs 34577062 and 24475906
 [https://eutils.ncbi.nlm.nih.gov/entrez/eutils/elink.fcgi?dbfrom=pubmed&db=pubmed&id=34525277](https://eutils.ncbi.nlm.nih.gov/entrez/eutils/elink.fcgi?dbfrom=pubmed&db=pubmed&id=34525277)
 
 
-<Divider />
 
 <div id="optional">
-  <StepLargeCustom number="7" title="Optional Parameters" />
+  <StepLargeCustom number="8" title="Optional Parameters" />
 </div>
 
 1. <HighlightBox><strong>retmode:</strong></HighlightBox>
@@ -282,11 +289,30 @@ Search field. If used, the entire search term will be limited to the specified E
 - self explanatory
 - format should be yyyy/mm/dd or yyyy or yyyy/mm
 
+
+
+<div id="search-fields">
+  <StepLargeCustom number="10" title="Database Statistics And Search Fields" />
+</div>
+
+Endpoint: `einfo.fcgi?db=<database>`
+
+Output: XML containing database statistics
+
+Note: If no database parameter is supplied, einfo will return a list of all valid Entrez databases.
+
+Example: Find database statistics for Entrez Pubmed
+
+[https://eutils.ncbi.nlm.nih.gov/entrez/eutils/einfo.fcgi?db=pubmed](https://eutils.ncbi.nlm.nih.gov/entrez/eutils/einfo.fcgi?db=pubmed)
+
+Use `&retmode=json` if you wanted the above returned in json.
+
+
+
 <Divider />
 
-
 <div id="epost">
-  <StepLargeCustom number="4" title="Epost" />
+  <StepLargeCustom number="9" title="Epost" />
 </div>
 
 Lets say you fetched a list of UIDs from another query and you want to store it in PubMed
@@ -311,3 +337,5 @@ XML response with a `WebEnv` id which can be used in a subsequent api call.
 </ePostResult>
 
 ```
+
+Use `&retmode=json` if you wanted the above returned in json.

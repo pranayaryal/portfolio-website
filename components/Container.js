@@ -60,7 +60,7 @@ export default function Container(props) {
         />
         <link rel="canonical" href={`https://manuarora.in${router.asPath}`} />
         <meta property="og:type" content={meta.type} />
-        <meta property="og:site_name" content="Manu Arora" />
+        <meta property="og:site_name" content="Pranay Aryal" />
         <meta property="og:description" content={meta.description} />
         <meta property="og:title" content={meta.title} />
         <meta property="og:image" content={meta.image} />
