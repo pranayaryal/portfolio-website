@@ -33,7 +33,7 @@ export default function Container(props) {
     },
     {
       name: "Blog",
-      link: "/blog",
+      link: "/blog-new",
     }
   ];
   const mobileLinks = [
