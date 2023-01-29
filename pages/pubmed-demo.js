@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 
 const Friday = () => {
   const [search, setSearch] = useState("")
-  const [ buttonText, setButtonText ] = useState("Search")
+  const [buttonText, setButtonText] = useState("Search")
   const [errorMessage, setErrorMessage] = useState("")
   const [articleSummaries, setArticleSummaries] = useState([])
 
@@ -32,7 +32,7 @@ const Friday = () => {
 
     const { error, summaries } = await res.json();
     if (error) {
-      setErrorMessage('There was an error')
+      setErrorMessage(`There was an error: ${error}`)
       setButtonText("Search")
       return
     }
@@ -54,7 +54,7 @@ const Friday = () => {
       title="Pranay Aryal | Pubmed Demo"
       description="Testing Demo"
     >
-      <div className="max-w-4xl mx-auto py-40">
+      <div className="max-w-4xl mx-auto py-4">
         <p className="mb-4">Search pubmed for a Randomized Controlled Trial</p>
         {errorMessage &&
           <p className="mt-4 mb-2 text-sm text-red-400">{errorMessage}</p>

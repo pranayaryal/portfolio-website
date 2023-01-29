@@ -9,10 +9,12 @@ const RELATED_ENDPOINT = `elink.fcgi?dbfrom=pubmed&db=pubmed&id=`
 
 const getPmids = async (term) => {
     // Get the pubMed Ids associated with the search
-    const url = `${BASE_URL}${SEARCH_ENDPOINT}${term}+randomized+controlled+trial[pubt]`
+    // const url = `${BASE_URL}${SEARCH_ENDPOINT}${term}+randomized+controlled+trial[pubt]`
+    const url = `${BASE_URL}${SEARCH_ENDPOINT}${term}+review[pubt]`
     const response  = await fetch(url)
 
     const search = await response.json()
+    console.log(search)
     return search
 }
 
@@ -32,26 +34,31 @@ export default async (req, res) => {
     const { esearchresult, header } = await getPmids(term)
     const { idlist } = esearchresult
 
-    const summary = await getSummary(idlist)
-    const {  result } = summary
-    const resultValues = Object.values(result)
+    if (idlist.length > 0){
+      const summary = await getSummary(idlist)
+      const {  result } = summary
+      const resultValues = Object.values(result)
 
-    let summaries = []
+      let summaries = []
 
-    resultValues.map(r => {
-      if (r.uid != undefined){
-        // This wil eliminate the last part of the array
-        // which is nothing but the list uids
-        summaries.push(r)
-      }
-    })
+      resultValues.map(r => {
+        if (r.uid != undefined){
+          // This wil eliminate the last part of the array
+          // which is nothing but the list uids
+          summaries.push(r)
+        }
+      })
 
-    console.log(summaries)
+      console.log(summaries)
 
 
-    res.json({ summaries , error: ""})
+      res.json({ summaries , error: ""})
+
+    }
+    res.json({error: "No PMIDs were found for that search"})
+
   } catch (error) {
-    // console.log(error);
+    console.log('you landed here')
     return res.status(error.statusCode || 500).json({ error: error.message });
   }
 
